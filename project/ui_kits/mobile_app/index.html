@@ -1,0 +1,83 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>FOF — Mobile app</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+body{margin:0;background:#0E1A2B;font-family:var(--font-body);color:#fff;display:flex;justify-content:center;padding:32px;min-height:100vh;box-sizing:border-box}
+.phone{width:390px;height:844px;background:#fff;border-radius:48px;border:10px solid #0E1A2B;box-shadow:0 60px 100px rgba(0,0,0,0.5);position:relative;overflow:hidden;color:var(--fof-ink)}
+.notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:30px;background:#0E1A2B;border-radius:20px;z-index:10}
+.status{position:absolute;top:0;left:0;right:0;height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 28px;z-index:5;font-size:15px;font-weight:700;color:#fff}
+.screen{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column}
+.hero{background:var(--fof-navy-800);color:#fff;padding:60px 22px 28px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:url("../../assets/pattern-confetti.svg");opacity:0.18;background-size:180px}
+.hero > *{position:relative}
+.hero .label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--fof-gold-500)}
+.hero h1{font-family:var(--font-display);font-weight:900;font-size:24px;letter-spacing:-0.02em;margin:6px 0 0;color:#fff}
+.score{background:var(--fof-gold-500);color:var(--fof-navy-900);border-radius:18px;padding:16px 18px;margin-top:18px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.score .team{text-align:center}
+.score .team .nm{font-family:var(--font-display);font-weight:900;font-size:14px;letter-spacing:-0.01em}
+.score .team .sc{font-family:var(--font-mono);font-weight:600;font-size:42px;line-height:1;margin-top:4px}
+.score .vs{font-size:11px;font-weight:800;color:var(--fof-navy-700);letter-spacing:1.5px}
+.score .live-row{grid-column:1/-1;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--fof-navy-700);letter-spacing:1px;text-transform:uppercase;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(11,42,91,0.25)}
+.score .live-dot{display:inline-flex;align-items:center;gap:4px}
+.score .live-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--fof-rally-500);animation:bl 1s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0.3}}
+.scroll{flex:1;overflow:auto;padding:16px 22px 90px}
+.section-title{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--fof-navy-800);margin:18px 0 10px;letter-spacing:-0.01em;display:flex;justify-content:space-between;align-items:center}
+.section-title a{font-size:12px;font-weight:700;color:var(--fof-navy-500)}
+.event{display:flex;gap:12px;align-items:center;background:var(--fof-cream);padding:14px;border-radius:14px;margin-bottom:8px}
+.event .when{text-align:center;min-width:48px}
+.event .d{font-family:var(--font-display);font-weight:900;font-size:22px;color:var(--fof-navy-800);line-height:1}
+.event .m{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--fof-slate-500)}
+.event .info{flex:1}
+.event .info .title{font-weight:800;font-size:14px;color:var(--fof-navy-800)}
+.event .info .meta{font-size:12px;color:var(--fof-slate-500);margin-top:2px}
+.event .pill{font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;color:#fff;background:#1F8A4C;letter-spacing:0.5px;text-transform:uppercase}
+.cta-card{background:var(--fof-navy-50);padding:16px;border-radius:14px;margin-top:12px;display:flex;justify-content:space-between;align-items:center}
+.cta-card .lbl{font-size:13px;color:var(--fof-navy-800);font-weight:700}
+.cta-card button{background:var(--fof-gold-500);color:var(--fof-navy-900);border:0;border-radius:999px;padding:8px 16px;font-family:var(--font-display);font-weight:900;font-size:12px;cursor:pointer;box-shadow:0 3px 0 var(--fof-gold-900)}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:80px;background:#fff;border-top:1px solid var(--fof-slate-100);display:flex;justify-content:space-around;align-items:flex-start;padding-top:10px;padding-bottom:24px}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fof-slate-500);font-size:10px;font-weight:700;text-decoration:none}
+.tabbar a.active{color:var(--fof-navy-800)}
+.tabbar .game-tab{background:var(--fof-gold-500);color:var(--fof-navy-900);width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-18px;box-shadow:0 6px 16px rgba(255,199,44,0.5);position:relative}
+.tabbar .game-tab::after{content:"LIVE";position:absolute;top:-4px;right:-4px;background:var(--fof-rally-500);color:#fff;font-size:8px;padding:2px 5px;border-radius:999px;font-weight:800;letter-spacing:1px}
+</style></head><body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="status"><span>9:42</span><span>📶 5G ●</span></div>
+  <div class="screen">
+    <div class="hero">
+      <div class="label">Game on now · Field 3</div>
+      <h1>Lions vs Hawks</h1>
+      <div class="score">
+        <div class="team"><div class="nm">LIONS</div><div class="sc">3</div></div>
+        <div class="vs">VS</div>
+        <div class="team"><div class="nm">HAWKS</div><div class="sc">2</div></div>
+        <div class="live-row"><span class="live-dot">LIVE · 2nd half · 14:22</span><span>Cooper #7 · 1G 1A</span></div>
+      </div>
+    </div>
+    <div class="scroll">
+      <div class="cta-card">
+        <div><div class="lbl">Coach Tia posted a photo</div><div style="font-size:11px;color:var(--fof-slate-500);margin-top:2px">2 min ago</div></div>
+        <button>View →</button>
+      </div>
+      <div class="section-title">Up next<a href="#">All</a></div>
+      <div class="event"><div class="when"><div class="d">11</div><div class="m">TUE</div></div><div class="info"><div class="title">Lions practice</div><div class="meta">5:30 PM · Field 3 · bring water</div></div><span class="pill">SOCCER</span></div>
+      <div class="event"><div class="when"><div class="d">15</div><div class="m">SAT</div></div><div class="info"><div class="title">Lions vs Eagles</div><div class="meta">9:00 AM · Field 1 · arrive 8:30</div></div><span class="pill">SOCCER</span></div>
+      <div class="event"><div class="when"><div class="d">15</div><div class="m">SAT</div></div><div class="info"><div class="title">Sparks practice</div><div class="meta">11:30 AM · EL Gym · Maya</div></div><span class="pill" style="background:#DB2777">CHEER</span></div>
+      <div class="section-title">My kids<a href="#">+</a></div>
+      <div class="event"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FFE7A8,#E8853A);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--fof-navy-900);font-family:var(--font-display)">CM</div><div class="info"><div class="title">Cooper · Lions #7</div><div class="meta">Soccer U8 · Coach Tia · 5–1</div></div></div>
+      <div class="event"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FCD2E1,#DB2777);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-family:var(--font-display)">MM</div><div class="info"><div class="title">Maya · Sparks</div><div class="meta">Cheer K-2 · Coach Bri</div></div></div>
+    </div>
+    <nav class="tabbar">
+      <a href="#" class="active"><i data-lucide="home"></i>Home</a>
+      <a href="#"><i data-lucide="calendar-days"></i>Schedule</a>
+      <a href="#" class="game-tab"><i data-lucide="play"></i></a>
+      <a href="#"><i data-lucide="message-circle"></i>Team</a>
+      <a href="#"><i data-lucide="user"></i>Me</a>
+    </nav>
+  </div>
+</div>
+<script>lucide.createIcons();</script>
+</body></html>

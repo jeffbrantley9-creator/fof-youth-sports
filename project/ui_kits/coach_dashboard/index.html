@@ -1,0 +1,99 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>FOF — Coach dashboard</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+body{margin:0;background:var(--fof-slate-50);font-family:var(--font-body);color:var(--fof-ink)}
+.top{background:#fff;border-bottom:1px solid var(--fof-slate-100);padding:14px 32px;display:flex;align-items:center;gap:24px;position:sticky;top:0;z-index:10}
+.top .brand{display:flex;align-items:center;gap:10px}
+.top .brand img{width:36px;height:36px}
+.top .brand span{font-family:var(--font-display);font-weight:900;font-size:16px;color:var(--fof-navy-800)}
+.team-tag{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--fof-navy-50);border-radius:999px;font-size:13px;font-weight:700;color:var(--fof-navy-800)}
+.role-pill{background:var(--fof-gold-500);color:var(--fof-navy-900);font-size:11px;padding:3px 8px;border-radius:999px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tabs a{padding:8px 14px;font-size:14px;font-weight:600;color:var(--fof-slate-500);border-radius:8px;text-decoration:none}
+.tabs a.active{background:var(--fof-navy-50);color:var(--fof-navy-800)}
+main{max-width:1240px;margin:0 auto;padding:28px 32px;display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.panel{background:#fff;border-radius:18px;padding:24px;border:1px solid var(--fof-slate-100);box-shadow:var(--shadow-sm)}
+.panel h2{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--fof-navy-800);margin:0 0 14px;letter-spacing:-0.01em}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.next-game{background:var(--fof-navy-800);color:#fff;border-radius:18px;padding:24px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;margin-bottom:18px;grid-column:1/-1;position:relative;overflow:hidden}
+.next-game::before{content:"";position:absolute;inset:0;background:url("../../assets/pattern-confetti.svg");opacity:0.15;background-size:200px}
+.next-game > *{position:relative}
+.next-game .when{text-align:center;background:var(--fof-gold-500);color:var(--fof-navy-900);padding:16px 20px;border-radius:14px}
+.next-game .when .m{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.next-game .when .d{font-family:var(--font-display);font-weight:900;font-size:36px;line-height:1}
+.next-game .when .t{font-family:var(--font-mono);font-size:13px;font-weight:600;margin-top:4px}
+.next-game .info .title{font-family:var(--font-display);font-weight:900;font-size:26px;letter-spacing:-0.01em}
+.next-game .info .meta{color:#BFD0EE;font-size:14px;margin-top:6px;display:flex;gap:14px}
+.next-game .btn{background:var(--fof-gold-500);color:var(--fof-navy-900);font-family:var(--font-display);font-weight:900;padding:12px 22px;border:0;border-radius:999px;cursor:pointer;font-size:15px;box-shadow:0 5px 0 var(--fof-gold-900)}
+.roster{margin-top:0}
+.roster .player{display:grid;grid-template-columns:36px 1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--fof-slate-100)}
+.roster .player:last-child{border-bottom:0}
+.roster .num{font-family:var(--font-mono);font-weight:600;color:var(--fof-slate-500);font-size:14px;text-align:center}
+.roster .av{width:32px;height:32px;border-radius:50%;background:var(--fof-navy-50);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--fof-navy-800);font-size:12px}
+.roster .nm{font-weight:700;font-size:14px}
+.roster .nm .age{color:var(--fof-slate-500);font-weight:500;font-size:12px;display:block}
+.att{display:flex;gap:6px}
+.att button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--fof-slate-200);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fof-slate-500)}
+.att button.go{background:var(--fof-field-500);color:#fff;border-color:var(--fof-field-500)}
+.att button.no{background:var(--fof-rally-500);color:#fff;border-color:var(--fof-rally-500)}
+.broadcast{display:flex;gap:10px;margin-top:14px}
+.broadcast input{flex:1;padding:12px 14px;border:1.5px solid var(--fof-slate-200);border-radius:12px;font-family:inherit;font-size:14px}
+.broadcast button{background:var(--fof-navy-800);color:#fff;font-family:var(--font-display);font-weight:800;padding:12px 18px;border:0;border-radius:12px;cursor:pointer}
+.msg{padding:12px 0;border-bottom:1px solid var(--fof-slate-100);font-size:14px}
+.msg .from{font-weight:700;color:var(--fof-navy-800);font-size:13px}
+.msg .when{color:var(--fof-slate-500);font-size:12px;margin-left:8px}
+.msg .body{margin-top:4px;color:var(--fof-slate-700);line-height:1.5}
+.stat-row{display:flex;gap:14px;margin-top:14px}
+.stat{flex:1;padding:14px;background:var(--fof-cream);border-radius:12px;text-align:center}
+.stat .num{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--fof-navy-800)}
+.stat .lbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--fof-slate-500);margin-top:2px}
+</style></head><body>
+<div class="top">
+  <div class="brand"><img src="../../assets/logo-mark.svg"><span>FOF Sports</span></div>
+  <div class="team-tag"><i class="ph ph-soccer-ball" style="color:#1F8A4C"></i>Lions · Soccer U8 · Spring '26 <span class="role-pill">Coach</span></div>
+  <div class="tabs"><a href="#" class="active">Today</a><a href="#">Roster</a><a href="#">Schedule</a><a href="#">Messages</a><a href="#">Resources</a></div>
+</div>
+<main>
+  <div class="next-game">
+    <div class="when"><div class="m">SAT</div><div class="d">8</div><div class="t">9:00 AM</div></div>
+    <div class="info"><div class="title">Lions vs Hawks</div><div class="meta"><span><i data-lucide="map-pin" style="width:14px;height:14px;display:inline"></i> Field 3 · Freedom Park</span><span>Arrival 8:30 AM · warmup 8:40</span><span>11 of 12 confirmed</span></div></div>
+    <button class="btn">Send game-day reminder →</button>
+  </div>
+
+  <div class="panel">
+    <div class="head"><h2>Roster &amp; attendance · Practice tonight</h2><span style="font-size:13px;color:var(--fof-slate-500)">10 / 12 confirmed</span></div>
+    <div class="roster">
+      <div class="player"><span class="num">7</span><div style="display:flex;align-items:center;gap:10px"><div class="av">CM</div><div class="nm">Cooper Mendoza<span class="age">8 · forward</span></div></div><span style="color:var(--fof-field-500);font-size:12px;font-weight:700">✓ confirmed</span><div class="att"><button class="go">✓</button><button>?</button><button>✕</button></div></div>
+      <div class="player"><span class="num">3</span><div style="display:flex;align-items:center;gap:10px"><div class="av">JL</div><div class="nm">Jordan Lee<span class="age">7 · midfield</span></div></div><span style="color:var(--fof-field-500);font-size:12px;font-weight:700">✓ confirmed</span><div class="att"><button class="go">✓</button><button>?</button><button>✕</button></div></div>
+      <div class="player"><span class="num">9</span><div style="display:flex;align-items:center;gap:10px"><div class="av">AS</div><div class="nm">Avery Smith<span class="age">8 · defense</span></div></div><span style="color:var(--fof-clay-500);font-size:12px;font-weight:700">⚠ maybe</span><div class="att"><button>✓</button><button class="no">?</button><button>✕</button></div></div>
+      <div class="player"><span class="num">11</span><div style="display:flex;align-items:center;gap:10px"><div class="av">RP</div><div class="nm">Rio Patel<span class="age">7 · forward</span></div></div><span style="color:var(--fof-field-500);font-size:12px;font-weight:700">✓ confirmed</span><div class="att"><button class="go">✓</button><button>?</button><button>✕</button></div></div>
+      <div class="player"><span class="num">4</span><div style="display:flex;align-items:center;gap:10px"><div class="av">DK</div><div class="nm">Diego K.<span class="age">8 · keeper</span></div></div><span style="color:var(--fof-rally-500);font-size:12px;font-weight:700">✕ out</span><div class="att"><button>✓</button><button>?</button><button class="no">✕</button></div></div>
+      <div class="player"><span class="num">12</span><div style="display:flex;align-items:center;gap:10px"><div class="av">TW</div><div class="nm">Theo Wong<span class="age">7 · midfield</span></div></div><span style="color:var(--fof-field-500);font-size:12px;font-weight:700">✓ confirmed</span><div class="att"><button class="go">✓</button><button>?</button><button>✕</button></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="num">5–1</div><div class="lbl">Record</div></div>
+      <div class="stat"><div class="num">22</div><div class="lbl">Goals scored</div></div>
+      <div class="stat"><div class="num">95%</div><div class="lbl">Practice attendance</div></div>
+      <div class="stat"><div class="num">12</div><div class="lbl">Players</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="panel" style="margin-bottom:18px">
+      <h2>Send the team a note</h2>
+      <p style="color:var(--fof-slate-500);font-size:13px;margin:0 0 6px">Goes to all 12 parents via email + push.</p>
+      <div class="broadcast"><input placeholder="Reminder: bring water + shin guards Saturday."><button>Send</button></div>
+    </div>
+    <div class="panel">
+      <div class="head"><h2>Recent messages</h2><a href="#" style="font-size:13px;font-weight:700;color:var(--fof-navy-500)">All →</a></div>
+      <div class="msg"><span class="from">Avery's mom</span><span class="when">2h ago</span><div class="body">Avery has a birthday party Sat morning — she'll be late by ~20 min. Sorry!</div></div>
+      <div class="msg"><span class="from">League ops</span><span class="when">yesterday</span><div class="body">Field 3 closed for maintenance Mon — practice moved to Field 5.</div></div>
+      <div class="msg"><span class="from">Diego's dad</span><span class="when">2 days ago</span><div class="body">Diego twisted his ankle, sitting out this week. Back next Sat.</div></div>
+    </div>
+  </div>
+</main>
+<script>lucide.createIcons();</script>
+</body></html>

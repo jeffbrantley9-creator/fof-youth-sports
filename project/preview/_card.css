@@ -1,0 +1,31 @@
+/* Shared CSS for preview/ cards. Each card is roughly 700×<h>, no surrounding chrome. */
+@import url("../colors_and_type.css");
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--fof-paper);
+  color: var(--fof-ink);
+  font-family: var(--font-body);
+}
+.card {
+  width: 700px;
+  padding: 28px 32px;
+  box-sizing: border-box;
+}
+.row { display: flex; gap: 16px; align-items: stretch; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.muted { color: var(--fof-slate-500); }
+.tiny  { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--fof-slate-500); }
+.swatch {
+  flex: 1;
+  border-radius: var(--r-md);
+  border: 1px solid var(--fof-slate-100);
+  padding: 12px 14px;
+  min-height: 86px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.swatch .name { font-weight: 700; font-size: 14px; }
+.swatch .hex  { font-family: var(--font-mono); font-size: 12px; opacity: 0.75; }
+.swatch.dark { color: #fff; }
+.specimen { display: flex; flex-direction: column; gap: 6px; }
+.specimen .meta { display: flex; gap: 16px; font-size: 12px; color: var(--fof-slate-500); font-family: var(--font-mono); }

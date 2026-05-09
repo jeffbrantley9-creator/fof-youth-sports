@@ -1,0 +1,107 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>FOF — Register a player</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+body{margin:0;background:var(--fof-cream);min-height:100vh;font-family:var(--font-body);color:var(--fof-ink)}
+.shell{max-width:760px;margin:0 auto;padding:32px 24px 80px}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:32px}
+.brandbar img{width:40px;height:40px}
+.brandbar span{font-family:var(--font-display);font-weight:900;font-size:18px;color:var(--fof-navy-800)}
+.steps{display:flex;gap:8px;margin-bottom:28px}
+.steps .s{flex:1;height:6px;border-radius:999px;background:var(--fof-slate-100)}
+.steps .s.active{background:var(--fof-gold-500)}
+.steps .s.done{background:var(--fof-navy-800)}
+.step-label{display:flex;justify-content:space-between;color:var(--fof-slate-500);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:24px}
+.card{background:#fff;border-radius:20px;padding:36px;box-shadow:var(--shadow-md);border:1px solid var(--fof-slate-100)}
+h1{font-family:var(--font-display);font-weight:900;font-size:34px;color:var(--fof-navy-800);letter-spacing:-0.02em;line-height:1.1;margin:0 0 8px}
+.lead{color:var(--fof-slate-700);font-size:16px;margin-bottom:28px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:14px;font-weight:600;color:var(--fof-navy-800);margin-bottom:6px}
+.field .hint{font-weight:400;color:var(--fof-slate-500);font-size:13px}
+.field input,.field select{width:100%;font-family:var(--font-body);font-size:16px;padding:13px 16px;border:1.5px solid var(--fof-slate-200);border-radius:12px;background:#fff;box-sizing:border-box;outline:none;transition:all 150ms}
+.field input:focus,.field select:focus{border-color:var(--fof-navy-800);box-shadow:0 0 0 3px rgba(255,199,44,0.4)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sport-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.sport-pick label{cursor:pointer}
+.sport-pick input{display:none}
+.sport-pick .opt{border:2px solid var(--fof-slate-100);border-radius:14px;padding:18px 12px;text-align:center;transition:all 150ms;background:#fff}
+.sport-pick input:checked + .opt{border-color:var(--fof-navy-800);background:var(--fof-navy-50)}
+.sport-pick .opt i{font-size:36px;display:block;margin-bottom:6px}
+.sport-pick .opt .name{font-weight:800;color:var(--fof-navy-800);font-size:14px}
+.sport-pick .opt .price{font-size:12px;color:var(--fof-slate-500);font-family:var(--font-mono)}
+.summary{background:var(--fof-navy-50);border-radius:14px;padding:18px;margin-top:20px}
+.summary .row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0}
+.summary .total{font-family:var(--font-display);font-weight:900;font-size:22px;color:var(--fof-navy-800);border-top:1px dashed var(--fof-slate-200);padding-top:10px;margin-top:8px}
+.actions{display:flex;justify-content:space-between;margin-top:28px;gap:12px}
+.btn{font-family:var(--font-display);font-weight:900;font-size:15px;padding:13px 24px;border-radius:999px;border:0;cursor:pointer;letter-spacing:-0.01em}
+.btn-primary{background:var(--fof-gold-500);color:var(--fof-navy-900);box-shadow:0 5px 0 var(--fof-gold-900),0 10px 20px rgba(255,199,44,0.28)}
+.btn-primary:hover{background:#FFD25A}.btn-primary:active{transform:translateY(4px);box-shadow:0 1px 0 var(--fof-gold-900)}
+.btn-ghost{background:transparent;color:var(--fof-navy-800);border:1.5px solid var(--fof-slate-200)}
+.btn-ghost:hover{background:var(--fof-slate-50)}
+.success{text-align:center;padding:24px}
+.success .check{width:80px;height:80px;border-radius:50%;background:var(--fof-field-500);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px}
+</style></head><body>
+<div class="shell">
+<div class="brandbar"><img src="../../assets/logo-mark.svg"><span>FOF Sports · Register a player</span></div>
+<div class="steps"><div class="s done"></div><div class="s active" id="step-bar"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+<div class="step-label"><span>Step <span id="step-n">2</span> of 5</span><span id="step-name">Player &amp; sport</span></div>
+
+<!-- Step 2 visible by default -->
+<div class="card" id="screen">
+<h1>Tell us about your kid.</h1>
+<p class="lead">We'll match them to a team based on age, school, and the sport you pick.</p>
+<div class="row2">
+  <div class="field"><label>Player's name <span class="hint">(the one on the jersey)</span></label><input value="Cooper Mendoza"></div>
+  <div class="field"><label>Date of birth</label><input value="03 / 14 / 2018" placeholder="MM / DD / YYYY"></div>
+</div>
+<div class="row2">
+  <div class="field"><label>Jersey size</label><select><option>Youth Small</option><option selected>Youth Medium</option><option>Youth Large</option></select></div>
+  <div class="field"><label>School</label><input value="Elizabeth Lane Elementary"></div>
+</div>
+<label style="display:block;font-size:14px;font-weight:600;color:var(--fof-navy-800);margin:14px 0 10px">Pick a sport</label>
+<div class="sport-pick">
+  <label><input type="radio" name="sport" checked><div class="opt"><i class="ph ph-soccer-ball" style="color:#1F8A4C"></i><div class="name">Soccer</div><div class="price">$179</div></div></label>
+  <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-football" style="color:#D97A3C"></i><div class="name">Flag football</div><div class="price">$189</div></div></label>
+  <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-basketball" style="color:#C2410C"></i><div class="name">Basketball</div><div class="price">$199</div></div></label>
+  <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-baseball" style="color:#1E40AF"></i><div class="name">T-ball</div><div class="price">$179</div></div></label>
+  <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-volleyball" style="color:#7C3AED"></i><div class="name">Volleyball</div><div class="price">$169</div></div></label>
+  <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-confetti" style="color:#DB2777"></i><div class="name">Cheer</div><div class="price">$159</div></div></label>
+</div>
+<div class="summary">
+  <div class="row"><span style="color:var(--fof-slate-500)">Spring soccer · 8 weeks</span><span>$179.00</span></div>
+  <div class="row"><span style="color:var(--fof-slate-500)">Jersey + uniform</span><span>included</span></div>
+  <div class="row total"><span>Today's total</span><span>$179.00</span></div>
+</div>
+<div class="actions">
+  <button class="btn btn-ghost" onclick="prev()">← Back</button>
+  <button class="btn btn-primary" onclick="next()">Continue →</button>
+</div>
+</div>
+</div>
+<script>
+lucide.createIcons();
+let n = 2;
+const names = ["Parent info","Player & sport","Practice times","Payment","Confirmation"];
+function setStep(i){
+  n = i;
+  document.getElementById('step-n').textContent = i;
+  document.getElementById('step-name').textContent = names[i-1];
+  const bars = document.querySelectorAll('.steps .s');
+  bars.forEach((b,k)=>{b.className='s';if(k<i-1)b.className='s done';if(k===i-1)b.className='s active'});
+}
+function next(){if(n<5){setStep(n+1)}else{showDone()}}
+function prev(){if(n>1)setStep(n-1)}
+function showDone(){
+  document.getElementById('screen').innerHTML = `
+    <div class="success">
+      <div class="check"><i data-lucide="check"></i></div>
+      <h1>You're in!</h1>
+      <p class="lead">We'll email you a confirmation now and your team match within a week. Coach will reach out before opening day.</p>
+      <a href="../parent_dashboard/index.html" class="btn btn-primary" style="text-decoration:none;display:inline-block">Go to my dashboard →</a>
+    </div>`;
+  lucide.createIcons();
+}
+</script>
+</body></html>
