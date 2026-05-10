@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" role="img" aria-label="FOF Sports mark on cream">
+  <defs>
+    <radialGradient id="cream-glow" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#FFF6D6"></stop>
+      <stop offset="60%" stop-color="#FFEFC2"></stop>
+      <stop offset="100%" stop-color="#FFE08A"></stop>
+    </radialGradient>
+    <linearGradient id="gold-stripe" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFC72C"></stop>
+      <stop offset="100%" stop-color="#E8A016"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <circle cx="70" cy="70" r="68" fill="url(#cream-glow)"></circle>
+  <circle cx="70" cy="70" r="66" fill="none" stroke="#0B2A5B" stroke-width="4"></circle>
+  <circle cx="70" cy="70" r="60" fill="none" stroke="#FFC72C" stroke-width="2.5"></circle>
+
+  
+  <text x="70" y="74" font-family="Nunito, ui-rounded, sans-serif" font-weight="900" font-size="52" fill="#0B2A5B" text-anchor="middle" letter-spacing="-1.5">FOF</text>
+
+  
+  <g transform="translate(70 104)">
+    <path d="M-44 -11 L44 -11 L48 0 L44 11 L-44 11 L-48 0 Z" fill="#0B2A5B"></path>
+    <path d="M-44 -11 L44 -11 L48 0 L44 11 L-44 11 L-48 0 Z" fill="url(#gold-stripe)" opacity="0.18"></path>
+    <text x="0" y="5" font-family="Nunito, ui-rounded, sans-serif" font-weight="900" font-size="17" fill="#FFC72C" text-anchor="middle" letter-spacing="3">SPORTS</text>
+  </g>
+
+  
+  <path d="M14 64 L17 70 L23 70.8 L18.5 75 L19.6 81 L14 78 L8.4 81 L9.5 75 L5 70.8 L11 70 Z" fill="#FFC72C" stroke="#0B2A5B" stroke-width="1.4" stroke-linejoin="round"></path>
+  <path d="M126 64 L129 70 L135 70.8 L130.5 75 L131.6 81 L126 78 L120.4 81 L121.5 75 L117 70.8 L123 70 Z" fill="#FFC72C" stroke="#0B2A5B" stroke-width="1.4" stroke-linejoin="round"></path>
+</svg>

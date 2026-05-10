@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOF Sports — Register a player</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fof-cream); min-height: 100vh;
+    font-family: var(--font-body); color: var(--fof-ink);
+  }
+
+  .shell { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .brandbar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 32px;
+    text-decoration: none; color: inherit;
+  }
+  .brandbar img { width: 40px; height: 40px; }
+  .brandbar span {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 18px; color: var(--fof-navy-800);
+  }
+
+  /* Progress bar */
+  .steps { display: flex; gap: 8px; margin-bottom: 28px; }
+  .steps .s {
+    flex: 1; height: 6px; border-radius: 999px; background: var(--fof-slate-100);
+    transition: background 300ms var(--ease-out);
+  }
+  .steps .s.active { background: var(--fof-gold-500); }
+  .steps .s.done { background: var(--fof-navy-800); }
+  .step-label {
+    display: flex; justify-content: space-between;
+    color: var(--fof-slate-500); font-size: 12px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;
+  }
+
+  .card {
+    background: #fff; border-radius: 20px; padding: 36px;
+    box-shadow: var(--shadow-md); border: 1px solid var(--fof-slate-100);
+  }
+  .card h1 {
+    font-family: var(--font-display); font-weight: 900; font-size: 34px;
+    color: var(--fof-navy-800); letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 8px;
+  }
+  .lead { color: var(--fof-slate-700); font-size: 16px; margin-bottom: 28px; }
+
+  /* Form fields */
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-size: 14px; font-weight: 600; color: var(--fof-navy-800); margin-bottom: 6px; }
+  .field .hint { font-weight: 400; color: var(--fof-slate-500); font-size: 13px; }
+  .field input, .field select {
+    width: 100%; font-family: var(--font-body); font-size: 16px;
+    padding: 13px 16px; border: 1.5px solid var(--fof-slate-200);
+    border-radius: 12px; background: #fff; outline: none;
+    transition: all 150ms; appearance: none;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--fof-navy-800);
+    box-shadow: 0 0 0 3px rgba(255,199,44,0.4);
+  }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* Sport picker */
+  .sport-pick {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 12px; margin-bottom: 18px;
+  }
+  .sport-pick label { cursor: pointer; }
+  .sport-pick input[type="radio"] { display: none; }
+  .sport-pick .opt {
+    border: 2px solid var(--fof-slate-100); border-radius: 14px;
+    padding: 18px 12px; text-align: center;
+    transition: all 150ms; background: #fff;
+  }
+  .sport-pick input:checked + .opt {
+    border-color: var(--fof-navy-800); background: var(--fof-navy-50);
+  }
+  .sport-pick .opt:hover { border-color: var(--fof-slate-200); background: var(--fof-slate-50); }
+  .sport-pick input:checked + .opt:hover { border-color: var(--fof-navy-800); background: var(--fof-navy-50); }
+  .sport-pick .opt i { font-size: 36px; display: block; margin-bottom: 6px; }
+  .sport-pick .opt .name { font-weight: 800; color: var(--fof-navy-800); font-size: 14px; }
+  .sport-pick .opt .price { font-size: 12px; color: var(--fof-slate-500); font-family: var(--font-mono); }
+
+  /* Order summary */
+  .summary {
+    background: var(--fof-navy-50); border-radius: 14px;
+    padding: 18px; margin-top: 20px;
+  }
+  .summary .row {
+    display: flex; justify-content: space-between;
+    font-size: 14px; padding: 6px 0;
+  }
+  .summary .total {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 22px; color: var(--fof-navy-800);
+    border-top: 1px dashed var(--fof-slate-200);
+    padding-top: 10px; margin-top: 8px;
+    display: flex; justify-content: space-between;
+  }
+
+  /* Payment fields */
+  .card-input-wrap { position: relative; }
+  .card-input-wrap input { padding-right: 48px; }
+  .card-input-wrap .card-icons {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    display: flex; gap: 4px; opacity: 0.5;
+  }
+
+  /* Navigation actions */
+  .actions {
+    display: flex; justify-content: space-between;
+    margin-top: 28px; gap: 12px;
+  }
+
+  /* Buttons */
+  .btn {
+    font-family: var(--font-display); font-weight: 900; font-size: 15px;
+    padding: 13px 24px; border-radius: 999px; border: 0;
+    cursor: pointer; letter-spacing: -0.01em; transition: all 200ms var(--ease-out);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary {
+    background: var(--fof-gold-500); color: var(--fof-navy-900);
+    box-shadow: 0 5px 0 var(--fof-gold-900), 0 10px 20px rgba(255,199,44,0.28);
+  }
+  .btn-primary:hover { background: #FFD25A; }
+  .btn-primary:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--fof-gold-900); }
+  .btn-ghost {
+    background: transparent; color: var(--fof-navy-800);
+    border: 1.5px solid var(--fof-slate-200);
+  }
+  .btn-ghost:hover { background: var(--fof-slate-50); }
+
+  /* Success screen */
+  .success { text-align: center; padding: 24px; }
+  .success .check {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--fof-field-500); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 40px;
+  }
+  .success h1 { color: var(--fof-navy-800); }
+  .success .confetti {
+    font-size: 48px; margin-bottom: 8px; display: block;
+    animation: pop-in 0.5s var(--ease-back);
+  }
+  @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  @media (max-width: 600px) {
+    .row2 { grid-template-columns: 1fr; }
+    .sport-pick { grid-template-columns: repeat(2,1fr); }
+    .card { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <a href="../index.html" class="brandbar">
+    <img src="../assets/logo-mark.svg" alt="">
+    <span>FOF Sports · Register a player</span>
+  </a>
+
+  <div class="steps">
+    <div class="s done" id="bar-1"></div>
+    <div class="s active" id="bar-2"></div>
+    <div class="s" id="bar-3"></div>
+    <div class="s" id="bar-4"></div>
+    <div class="s" id="bar-5"></div>
+  </div>
+  <div class="step-label">
+    <span>Step <span id="step-n">2</span> of 5</span>
+    <span id="step-name">Player &amp; sport</span>
+  </div>
+
+  <div class="card" id="screen"></div>
+</div>
+
+<script>
+lucide.createIcons();
+
+const steps = [
+  {
+    name: "Parent info",
+    render: () => `
+      <h1>Let's start with you.</h1>
+      <p class="lead">We'll use this for all your kids' registrations.</p>
+      <div class="row2">
+        <div class="field"><label>First name</label><input value="Sarah" placeholder="Your first name"></div>
+        <div class="field"><label>Last name</label><input value="Mendoza" placeholder="Your last name"></div>
+      </div>
+      <div class="field"><label>Email address</label><input type="email" value="sarah.mendoza@gmail.com" placeholder="you@email.com"></div>
+      <div class="field"><label>Mobile number <span class="hint">(game-day texts)</span></label><input type="tel" value="704-555-0182" placeholder="704-555-0000"></div>
+      <div class="field"><label>Neighborhood / zip code</label><input value="28277" placeholder="28202"></div>
+    `
+  },
+  {
+    name: "Player &amp; sport",
+    render: () => `
+      <h1>Tell us about your kid.</h1>
+      <p class="lead">We'll match them to a team based on age, school, and the sport you pick.</p>
+      <div class="row2">
+        <div class="field"><label>Player's name <span class="hint">(the one on the jersey)</span></label><input value="Cooper Mendoza"></div>
+        <div class="field"><label>Date of birth</label><input value="03 / 14 / 2018" placeholder="MM / DD / YYYY"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Jersey size</label><select><option>Youth Small</option><option selected>Youth Medium</option><option>Youth Large</option><option>Adult Small</option></select></div>
+        <div class="field"><label>School</label><input value="Elizabeth Lane Elementary"></div>
+      </div>
+      <label style="display:block;font-size:14px;font-weight:600;color:var(--fof-navy-800);margin:14px 0 10px">Pick a sport</label>
+      <div class="sport-pick">
+        <label><input type="radio" name="sport" checked><div class="opt"><i class="ph ph-soccer-ball" style="color:#1F8A4C"></i><div class="name">Soccer</div><div class="price">$179</div></div></label>
+        <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-football" style="color:#D97A3C"></i><div class="name">Flag football</div><div class="price">$189</div></div></label>
+        <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-basketball" style="color:#C2410C"></i><div class="name">Basketball</div><div class="price">$199</div></div></label>
+        <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-baseball" style="color:#1E40AF"></i><div class="name">T-ball</div><div class="price">$179</div></div></label>
+        <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-volleyball" style="color:#7C3AED"></i><div class="name">Volleyball</div><div class="price">$169</div></div></label>
+        <label><input type="radio" name="sport"><div class="opt"><i class="ph ph-confetti" style="color:#DB2777"></i><div class="name">Cheer</div><div class="price">$159</div></div></label>
+      </div>
+      <div class="summary">
+        <div class="row"><span style="color:var(--fof-slate-500)">Spring soccer · 8 weeks</span><span>$179.00</span></div>
+        <div class="row"><span style="color:var(--fof-slate-500)">Jersey + uniform</span><span>included</span></div>
+        <div class="total"><span>Today's total</span><span>$179.00</span></div>
+      </div>
+    `
+  },
+  {
+    name: "Practice times",
+    render: () => `
+      <h1>When works for your family?</h1>
+      <p class="lead">We'll do our best to match you with a team that fits your schedule.</p>
+      <div class="field">
+        <label>Preferred practice day</label>
+        <select>
+          <option>No preference</option>
+          <option selected>Tuesday evenings</option>
+          <option>Wednesday evenings</option>
+          <option>Thursday evenings</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Preferred practice time</label>
+        <select>
+          <option>No preference</option>
+          <option>5:00–6:00 PM</option>
+          <option selected>5:30–6:30 PM</option>
+          <option>6:00–7:00 PM</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Nearest park or school</label>
+        <select>
+          <option>No preference</option>
+          <option selected>Freedom Park</option>
+          <option>South Park fields</option>
+          <option>Elizabeth Lane school</option>
+          <option>Ballantyne Community Park</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Any scheduling conflicts this season? <span class="hint">(optional)</span></label>
+        <input placeholder="e.g. Away April 5–12, can't do Thursdays…">
+      </div>
+      <div style="background:var(--fof-navy-50);border-radius:12px;padding:16px;margin-top:8px;font-size:14px;color:var(--fof-slate-700);line-height:1.55">
+        We match teams by neighborhood to keep drives short. Games are always Saturday mornings.
+      </div>
+    `
+  },
+  {
+    name: "Payment",
+    render: () => `
+      <h1>Almost there.</h1>
+      <p class="lead">Secure payment via Stripe. Your card isn't charged until you confirm.</p>
+      <div class="summary" style="margin-bottom:28px">
+        <div class="row"><span style="color:var(--fof-slate-500)">Spring soccer · Cooper · 8 weeks</span><span>$179.00</span></div>
+        <div class="row"><span style="color:var(--fof-slate-500)">Jersey + uniform</span><span>included</span></div>
+        <div class="total"><span>Total due today</span><span>$179.00</span></div>
+      </div>
+      <div class="field">
+        <label>Name on card</label>
+        <input value="Sarah Mendoza" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>Card number</label>
+        <div class="card-input-wrap">
+          <input value="4242 4242 4242 4242" placeholder="1234 5678 9012 3456">
+          <div class="card-icons">
+            <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><rect width="28" height="18" rx="3" fill="#1434CB"/><text x="14" y="13" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">VISA</text></svg>
+          </div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Expiry</label><input value="09 / 27" placeholder="MM / YY"></div>
+        <div class="field"><label>CVC</label><input value="•••" placeholder="123" maxlength="4"></div>
+      </div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer">
+          <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--fof-navy-800)">
+          Save card for future registrations
+        </label>
+      </div>
+    `
+  },
+  {
+    name: "Confirmation",
+    render: null
+  }
+];
+
+let currentStep = 2;
+
+function renderStep(n) {
+  const step = steps[n - 1];
+  const isLast = n === steps.length;
+  const screen = document.getElementById('screen');
+
+  if (isLast) {
+    showDone();
+    return;
+  }
+
+  screen.innerHTML = `
+    ${step.render()}
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="go(${n - 1})" ${n === 1 ? 'style="visibility:hidden"' : ''}>← Back</button>
+      <button class="btn btn-primary" onclick="go(${n + 1})">${n === 4 ? 'Pay $179.00 →' : 'Continue →'}</button>
+    </div>
+  `;
+  lucide.createIcons();
+}
+
+function updateProgress(n) {
+  currentStep = n;
+  document.getElementById('step-n').textContent = n;
+  document.getElementById('step-name').innerHTML = steps[n - 1].name;
+  for (let i = 1; i <= 5; i++) {
+    const bar = document.getElementById('bar-' + i);
+    bar.className = 's' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+}
+
+function go(n) {
+  if (n < 1 || n > 5) return;
+  if (n === 5) { showDone(); return; }
+  updateProgress(n);
+  renderStep(n);
+}
+
+function showDone() {
+  for (let i = 1; i <= 5; i++) {
+    document.getElementById('bar-' + i).className = 's done';
+  }
+  document.getElementById('step-n').textContent = '5';
+  document.getElementById('step-name').textContent = 'Confirmation';
+
+  document.getElementById('screen').innerHTML = `
+    <div class="success">
+      <span class="confetti" aria-hidden="true">🎉</span>
+      <div class="check"><i data-lucide="check" style="width:40px;height:40px"></i></div>
+      <h1>You're in!</h1>
+      <p class="lead">We'll email you a confirmation now and your team match within a week. Coach will reach out before opening day.</p>
+      <p style="font-size:14px;color:var(--fof-slate-500);margin-top:8px">Cooper Mendoza · Spring Soccer · $179.00 paid</p>
+      <a href="../dashboard/index.html" class="btn btn-primary" style="margin-top:24px">Go to my dashboard →</a>
+    </div>`;
+  lucide.createIcons();
+}
+
+// Initial render
+updateProgress(2);
+renderStep(2);
+</script>
+</body>
+</html>

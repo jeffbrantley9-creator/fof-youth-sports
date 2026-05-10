@@ -1,0 +1,203 @@
+/* ==========================================================================
+   FOF Youth Sports — Foundations
+   Tokens: colors, type, spacing, radius, shadows, motion.
+   Import this file at the top of any design page.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* ---------- Color: Brand primaries ---------- */
+  --fof-navy-900: #061A3A;       /* deepest navy — heroes, footers */
+  --fof-navy-800: #0B2A5B;       /* PRIMARY navy — headers, headlines */
+  --fof-navy-700: #173A7A;       /* navy hover / lighter blocks */
+  --fof-navy-500: #2E5DB8;       /* link blue */
+  --fof-navy-200: #BFD0EE;       /* navy tint — highlights */
+  --fof-navy-50:  #EEF3FB;       /* navy wash — section bg */
+
+  --fof-gold-900: #8A6300;       /* gold pressed */
+  --fof-gold-700: #D9A300;       /* gold hover */
+  --fof-gold-500: #FFC72C;       /* PRIMARY gold — CTAs, accents */
+  --fof-gold-300: #FFE08A;       /* gold tint */
+  --fof-gold-100: #FFF6D6;       /* cream-gold wash */
+
+  /* ---------- Color: Accents (sparingly) ---------- */
+  --fof-rally-600: #C42B36;      /* rally red pressed */
+  --fof-rally-500: #E63946;      /* rally red — alerts, scores */
+  --fof-field-700: #176A3B;      /* field green pressed */
+  --fof-field-500: #1F8A4C;      /* field green — success, sports tags */
+  --fof-clay-500:  #D97A3C;      /* clay orange — baseball/football tags */
+
+  /* ---------- Color: Neutrals ---------- */
+  --fof-ink:       #0E1A2B;      /* primary text */
+  --fof-slate-700: #2A3957;
+  --fof-slate-500: #475569;      /* secondary text */
+  --fof-slate-300: #94A3B8;      /* tertiary / placeholder */
+  --fof-slate-200: #CBD5E1;      /* borders strong */
+  --fof-slate-100: #E5E9F0;      /* borders default */
+  --fof-slate-50:  #F2F4F8;      /* surface alt */
+  --fof-cream:     #FFF8E7;      /* warm canvas */
+  --fof-paper:     #FFFFFF;
+  --fof-onnavy:    #FFFFFF;
+
+  /* ---------- Color: Semantic ---------- */
+  --color-bg:           var(--fof-paper);
+  --color-bg-alt:       var(--fof-slate-50);
+  --color-bg-warm:      var(--fof-cream);
+  --color-bg-hero:      var(--fof-navy-800);
+
+  --color-fg:           var(--fof-ink);
+  --color-fg-muted:     var(--fof-slate-500);
+  --color-fg-subtle:    var(--fof-slate-300);
+  --color-fg-onnavy:    var(--fof-onnavy);
+  --color-fg-ongold:    var(--fof-navy-900);
+
+  --color-border:       var(--fof-slate-100);
+  --color-border-strong:var(--fof-slate-200);
+
+  --color-primary:      var(--fof-navy-800);
+  --color-primary-hover:var(--fof-navy-700);
+  --color-accent:       var(--fof-gold-500);
+  --color-accent-hover: var(--fof-gold-700);
+
+  --color-success:      var(--fof-field-500);
+  --color-warning:      var(--fof-clay-500);
+  --color-danger:       var(--fof-rally-500);
+  --color-info:         var(--fof-navy-500);
+
+  /* ---------- Sport tag colors (for sport pills/cards) ---------- */
+  --sport-soccer:    var(--fof-field-500);
+  --sport-football:  var(--fof-clay-500);
+  --sport-basketball:#C2410C;
+  --sport-baseball:  #1E40AF;
+  --sport-volleyball:#7C3AED;
+  --sport-cheer:     #DB2777;
+
+  /* ---------- Type: Families ---------- */
+  --font-display: "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-body:    "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* ---------- Type: Scale (fluid-friendly) ---------- */
+  --fs-display:   clamp(48px, 6vw, 88px);
+  --fs-h1:        clamp(36px, 4vw, 56px);
+  --fs-h2:        clamp(28px, 3vw, 40px);
+  --fs-h3:        24px;
+  --fs-h4:        20px;
+  --fs-body-lg:   18px;
+  --fs-body:      16px;
+  --fs-body-sm:   14px;
+  --fs-caption:   13px;
+  --fs-micro:     11px;
+
+  /* ---------- Type: Weights ---------- */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-heavy:     800;
+  --fw-black:     900;
+
+  /* ---------- Type: Line height & tracking ---------- */
+  --lh-display:  1.02;
+  --lh-heading:  1.12;
+  --lh-snug:     1.3;
+  --lh-body:     1.55;
+  --tr-tight:   -0.02em;
+  --tr-display: -0.03em;
+  --tr-caps:     0.08em;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ---------- Radius ---------- */
+  --r-xs:   6px;
+  --r-sm:   10px;
+  --r-md:   14px;     /* default cards */
+  --r-lg:   20px;     /* hero cards / modals */
+  --r-xl:   28px;     /* feature panels */
+  --r-pill: 999px;    /* pills / badges */
+
+  /* ---------- Shadows ---------- */
+  --shadow-xs:  0 1px 2px rgba(11, 42, 91, 0.06);
+  --shadow-sm:  0 2px 6px rgba(11, 42, 91, 0.08);
+  --shadow-md:  0 8px 20px rgba(11, 42, 91, 0.10), 0 2px 6px rgba(11, 42, 91, 0.06);
+  --shadow-lg:  0 18px 40px rgba(11, 42, 91, 0.14), 0 4px 10px rgba(11, 42, 91, 0.06);
+  --shadow-gold:0 6px 0 var(--fof-gold-900), 0 12px 24px rgba(255, 199, 44, 0.30); /* CTA stack */
+  --shadow-press:0 2px 0 var(--fof-gold-900);
+  --ring-focus: 0 0 0 3px rgba(255, 199, 44, 0.55);
+
+  /* ---------- Motion ---------- */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-back:  cubic-bezier(0.34, 1.56, 0.64, 1);     /* playful spring for kid moments */
+  --ease-in:    cubic-bezier(0.55, 0, 1, 0.45);
+  --t-fast:     120ms;
+  --t-base:     200ms;
+  --t-slow:     360ms;
+
+  /* ---------- Layout ---------- */
+  --maxw-content: 1180px;
+  --maxw-narrow:  720px;
+  --gutter:       clamp(16px, 4vw, 32px);
+}
+
+/* ==========================================================================
+   Element defaults — semantic, not utility
+   ========================================================================== */
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--color-fg);
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); font-weight: var(--fw-black); line-height: var(--lh-display); letter-spacing: var(--tr-display); }
+h2 { font-size: var(--fs-h2); font-weight: var(--fw-heavy); line-height: var(--lh-heading); letter-spacing: var(--tr-tight); }
+h3 { font-size: var(--fs-h3); font-weight: var(--fw-bold);  line-height: var(--lh-snug); }
+h4 { font-size: var(--fs-h4); font-weight: var(--fw-bold);  line-height: var(--lh-snug); }
+.display { font-family: var(--font-display); font-size: var(--fs-display); font-weight: var(--fw-black); line-height: var(--lh-display); letter-spacing: var(--tr-display); }
+
+p   { margin: 0; line-height: var(--lh-body); text-wrap: pretty; }
+.lead { font-size: var(--fs-body-lg); color: var(--color-fg-muted); }
+.caption { font-size: var(--fs-caption); color: var(--color-fg-muted); }
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+a { color: var(--fof-navy-500); text-decoration: none; }
+a:hover { color: var(--fof-navy-700); text-decoration: underline; text-underline-offset: 3px; }
+
+::selection { background: var(--fof-gold-300); color: var(--fof-navy-900); }
+
+*:focus-visible { outline: none; box-shadow: var(--ring-focus); border-radius: var(--r-xs); }

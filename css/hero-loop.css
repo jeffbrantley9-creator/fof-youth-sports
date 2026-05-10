@@ -1,0 +1,84 @@
+/* FOF hero loop — 24s seamless continuous montage
+   Soccer (kick) → Volleyball (rally) → Flag football (run) → Basketball (MADE SHOT) */
+
+.scene-loop{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0B2A5B}
+.scene{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.scene svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.scene-1{animation:s1-fade 24s linear infinite;background:radial-gradient(ellipse at 50% 35%,#3FB76A 0%,#1F8A4C 55%,#0E5D33 100%)}
+.scene-2{animation:s2-fade 24s linear infinite;background:radial-gradient(ellipse at 50% 30%,#FFE7A8 0%,#E8853A 60%,#7A3A1A 100%)}
+.scene-3{animation:s3-fade 24s linear infinite;background:radial-gradient(ellipse at 30% 60%,#2E5DB8 0%,#0B2A5B 80%)}
+.scene-4{animation:s4-fade 24s linear infinite;background:radial-gradient(ellipse at 70% 30%,#FFD25A 0%,#E8A016 35%,#7A3A1A 100%)}
+
+@keyframes s1-fade{0%,2%{opacity:1}24%,100%{opacity:0} 96%,100%{opacity:1}}
+@keyframes s2-fade{0%,22%{opacity:0}26%,46%{opacity:1}50%,100%{opacity:0}}
+@keyframes s3-fade{0%,46%{opacity:0}50%,70%{opacity:1}74%,100%{opacity:0}}
+@keyframes s4-fade{0%,70%{opacity:0}74%,94%{opacity:1}98%,100%{opacity:0}}
+
+.scene .tag{position:absolute;left:24px;bottom:24px;font-family:var(--font-display);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:0.92;text-transform:uppercase;text-shadow:0 6px 28px rgba(0,0,0,0.55);z-index:5}
+.scene .tag .small{display:block;color:var(--fof-gold-500);font-size:14px;letter-spacing:3px;margin-bottom:6px;font-weight:800}
+.scene .tag .big{font-size:clamp(40px,5vw,64px)}
+
+.scene-loop::after{content:"";position:absolute;inset:0;background-image:url("../assets/pattern-confetti.svg");background-size:180px;opacity:0.10;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+
+/* SCENE 1 — SOCCER */
+.s1-figure{animation:s1-figure 24s linear infinite}
+@keyframes s1-figure{0%{transform:translateX(-30%)}3%,16%{transform:translateX(0)}20%{transform:translateX(8%)}24%,100%{transform:translateX(8%);opacity:0}}
+.s1-ball{animation:s1-ball 24s linear infinite}
+@keyframes s1-ball{0%,5%{transform:translate(0,0) rotate(0)}16%{transform:translate(40%,-30%) rotate(540deg)}22%{transform:translate(110%,15%) rotate(900deg);opacity:1}24%,100%{transform:translate(110%,15%) rotate(900deg);opacity:0}}
+.s1-dust{animation:s1-dust 24s linear infinite;transform-origin:center}
+@keyframes s1-dust{0%,5%{opacity:0;transform:scale(0.4)}8%{opacity:0.7;transform:scale(1.2)}14%{opacity:0;transform:scale(1.6)}24%,100%{opacity:0}}
+.s1-tag{animation:s1-tag 24s linear infinite}
+@keyframes s1-tag{0%,12%{opacity:0;transform:translateY(8px)}16%,22%{opacity:1;transform:translateY(0)}25%,100%{opacity:0}}
+
+/* SCENE 2 — VOLLEYBALL */
+.s2-ball{animation:s2-ball 24s linear infinite}
+@keyframes s2-ball{0%,25%{transform:translate(-20%,-10%);opacity:0}28%{opacity:1}33%{transform:translate(15%,-50%) rotate(180deg)}38%{transform:translate(50%,5%) rotate(360deg)}43%{transform:translate(85%,40%) rotate(540deg)}48%{transform:translate(120%,80%) rotate(720deg);opacity:0.6}50%,100%{opacity:0}}
+.s2-fig-l{animation:s2-figl 24s linear infinite}
+@keyframes s2-figl{0%,26%{transform:translateY(8px);opacity:0}30%{transform:translateY(-4px);opacity:1}34%{transform:translateY(0)}50%,100%{opacity:0}}
+.s2-fig-r{animation:s2-figr 24s linear infinite}
+@keyframes s2-figr{0%,38%{transform:translateY(8px);opacity:0}42%{transform:translateY(-12px);opacity:1}46%{transform:translateY(0)}50%,100%{opacity:0}}
+.s2-tag{animation:s2-tag 24s linear infinite}
+@keyframes s2-tag{0%,40%{opacity:0;transform:translateY(8px)}44%,48%{opacity:1;transform:translateY(0)}51%,100%{opacity:0}}
+
+/* SCENE 3 — FLAG FOOTBALL */
+.s3-pan{animation:s3-pan 24s linear infinite}
+@keyframes s3-pan{0%,50%{transform:translateX(0)}54%,68%{transform:translateX(-30%)}72%{transform:translateX(-40%)}74%,100%{transform:translateX(-40%);opacity:0}}
+.s3-runner{animation:s3-run 24s linear infinite}
+@keyframes s3-run{0%,50%{transform:translateX(-30%)}54%{transform:translateX(0)}68%{transform:translateX(20%)}72%{transform:translateX(40%)}74%,100%{opacity:0}}
+.s3-runner-leg{animation:s3-leg 0.4s linear infinite}
+@keyframes s3-leg{0%,100%{transform:rotate(20deg)}50%{transform:rotate(-20deg)}}
+.s3-flag{animation:s3-flag 0.6s ease-in-out infinite}
+@keyframes s3-flag{0%,100%{transform:rotate(0)}50%{transform:rotate(15deg) translateY(-2px)}}
+.s3-tag{animation:s3-tag 24s linear infinite}
+@keyframes s3-tag{0%,64%{opacity:0;transform:translateY(8px)}68%,72%{opacity:1;transform:translateY(0)}75%,100%{opacity:0}}
+
+/* SCENE 4 — BASKETBALL CLIMAX */
+.s4-arc{animation:s4-arc 24s linear infinite;transform-origin:center}
+@keyframes s4-arc{
+  0%,74%{transform:translate(-50%,40%) scale(0.9);opacity:0}
+  76%{opacity:1}
+  82%{transform:translate(20%,-40%) scale(1) rotate(720deg)}
+  86%{transform:translate(48%,-60%) scale(1.05) rotate(900deg)}
+  88%{transform:translate(48%,-30%) scale(1) rotate(1080deg)}
+  90%{transform:translate(48%,0%) scale(1) rotate(1260deg)}
+  93%,100%{transform:translate(48%,30%) scale(1) rotate(1440deg);opacity:0}
+}
+.s4-hoop{animation:s4-hoop 24s linear infinite;transform-origin:center top}
+@keyframes s4-hoop{0%,86%{transform:scale(1)}87%,89%{transform:scale(1.04)}90%,100%{transform:scale(1)}}
+.s4-net{animation:s4-net 24s linear infinite;transform-origin:center top}
+@keyframes s4-net{0%,87%{transform:scaleY(1)}89%{transform:scaleY(1.4) skewX(8deg)}91%{transform:scaleY(0.85) skewX(-6deg)}93%{transform:scaleY(1.1) skewX(3deg)}95%,100%{transform:scaleY(1)}}
+.s4-confetti{animation:s4-confetti 24s linear infinite;transform-origin:center}
+@keyframes s4-confetti{0%,89%{opacity:0;transform:scale(0.2)}91%{opacity:1;transform:scale(1)}96%{opacity:0;transform:scale(2)}100%{opacity:0}}
+.s4-confetti circle,.s4-confetti rect{animation:s4-confetti-bit 24s linear infinite}
+@keyframes s4-confetti-bit{0%,89%{transform:translate(0,0)}96%,100%{transform:translate(var(--cx,0),var(--cy,0))}}
+.s4-score{animation:s4-score 24s linear infinite}
+@keyframes s4-score{0%,89%{opacity:0;transform:translateY(20px) scale(0.7)}91%,95%{opacity:1;transform:translateY(0) scale(1)}97%,100%{opacity:0;transform:scale(1.1)}}
+.s4-tag{animation:s4-tag 24s linear infinite}
+@keyframes s4-tag{0%,90%{opacity:0;transform:translateY(8px)}92%,96%{opacity:1;transform:translateY(0)}99%,100%{opacity:0}}
+.s4-shooter{animation:s4-shooter 24s linear infinite}
+@keyframes s4-shooter{0%,75%{transform:translateY(0);opacity:0}77%,82%{transform:translateY(-30px);opacity:1}86%{transform:translateY(0);opacity:0.7}90%,100%{opacity:0}}
+
+:root{
+  --skin-1:#F4C9A2;--skin-2:#D9A075;--skin-3:#A56638;--skin-4:#7A3F1F;--skin-5:#5C2E1A;--skin-6:#E8B898;
+}
